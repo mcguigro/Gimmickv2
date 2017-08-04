@@ -22,4 +22,5 @@
 
 - Credits
 	- All artwork and sound is non-original and is utilized under fair use.  The full list of credits will be present within the final version of the project.
+	- Our team learned the fundamentals of Unity through the following Udemy online course: udemy.com/unity2dplatformer/
 	
