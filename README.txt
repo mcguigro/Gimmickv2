@@ -18,7 +18,7 @@
 	- The original source code (written in C#) for the game is located under /Assets/Scripts/
   
 - Play The Game Yourself
-  - Extract the .exe file (Windows, 32-Bit) from Gimmick.zip, and enjoy!
+  - Extract Gimmick.exe and Gimmick_Data to the same area (Windows, 32-Bit) from Gimmick.zip, and enjoy!
 
 - Gameplay Demonstration
 	- https://youtu.be/VqMXGgIN3MM
