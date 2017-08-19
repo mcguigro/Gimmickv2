@@ -67,8 +67,8 @@ public class BossController : MonoBehaviour {
 	public bool dead;
 
 	public const float STARPOWERX = 0.75f;
-	public const float STARPOWERY = 2.25f;
-	public const float MAXHITYVEL = 30f;
+	public const float STARPOWERY = 2.5f;
+	public const float MAXHITYVEL = 25f;
 
 	private Rigidbody2D myRigidBody;
 	private BoxCollider2D[] boxes;
@@ -99,7 +99,7 @@ public class BossController : MonoBehaviour {
 		shellThrown = false;
 		dead = false;
 		explosionCounter = DEATHTIME * EXPLOSIONSPERSECOND;
-		health = 3;
+		health = 2;
 		myRigidBody = GetComponent<Rigidbody2D> ();
 		gravity = myRigidBody.gravityScale * Physics.gravity.y;
 		boxes = GetComponents<BoxCollider2D> ();

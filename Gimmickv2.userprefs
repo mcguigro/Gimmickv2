@@ -1,26 +1,17 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\AudioManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\BossController.cs">
     <Files>
       <File FileName="Assets\Scripts\GimmickController.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\CrusherController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\LevelManager.cs" Line="59" Column="31" />
+      <File FileName="Assets\Scripts\LevelManager.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\BonusHeart.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\LevelEndController.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\StarController.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\AudioManager.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\CameraController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\BlueExplosionController.cs" Line="16" Column="58" />
-      <File FileName="Assets\Scripts\DestroyOverTime.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\TakeStarDamage.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\RobotController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\MusicTriggerController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\BossController.cs" Line="232" Column="54" />
-      <File FileName="Assets\Scripts\CreditsController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ShootAtPlayerInRange.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\HurtPlayer.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\PauseScreen.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\MainMenu.cs" Line="36" Column="31" />
+      <File FileName="Assets\Scripts\UIScaler.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\BossController.cs" Line="71" Column="36" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
