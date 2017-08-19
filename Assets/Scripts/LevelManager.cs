@@ -49,6 +49,12 @@ public class LevelManager : MonoBehaviour
 
 	public string maxHealthKey = "MaxHealth";			//+ key used in PlayerPrefs to store max health of Gimmick
 
+	public static readonly Vector3[][] restartLocations = new [] {new [] { new Vector3 (-30, 33, 0), new Vector3 (-30, 33, 0) },
+		new [] { new Vector3 (-35, -21, 0), new Vector3 (-35, -21, 0) }, 
+		new [] { new Vector3 (-18.5f, 4.5f, 0), new Vector3 (-18.5f, 4.5f, 0) }, 
+		new [] { new Vector3 (-25.3f, -12.5f, 0), new Vector3 (382, -6, 0) }
+	};
+
     // Use this for initialization
     void Start()
     {
@@ -71,6 +77,10 @@ public class LevelManager : MonoBehaviour
 		theHighScore = FindObjectOfType<HighScore> ();
 
 		UpdateHeartMeter ();
+
+		int levelIndex = getLevelIndex ();
+		if (levelIndex > -1)
+			Gimmick.transform.position = restartLocations[levelIndex][PlayerPrefs.GetInt("Level Progress")];
     }
 
     // Update is called once per frame
@@ -775,6 +785,20 @@ public class LevelManager : MonoBehaviour
 			spriteRenderer.color = new Color (1f, 1f, 1f, 1f);
 
 		//Debug.Log ("alpha: " + spriteRenderer.color.a);
+	}
+
+	public int getLevelIndex() {
+		string levelName = SceneManager.GetActiveScene ().name;
+		if (levelName == "CaveLevel")
+			return 0;
+		else if (levelName == "Seaside Level")
+			return 1;
+		else if (levelName == "Factory Level")
+			return 2;
+		else if (levelName == "Forest Level")
+			return 3;
+		else
+			return -1;
 	}
 
 }

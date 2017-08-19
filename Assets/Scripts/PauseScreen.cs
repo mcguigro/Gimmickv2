@@ -13,6 +13,7 @@ public class PauseScreen : MonoBehaviour {
     public GameObject theGameOverScreen;
     private EventSystem theEventSystem;
 
+	private const string levelProgressKey = "Level Progress";
 
     // Use this for initialization
     void Start () {
@@ -93,6 +94,7 @@ public class PauseScreen : MonoBehaviour {
     }
     public void LevelSelect()
     {
+		PlayerPrefs.SetInt (levelProgressKey, 0);
         PlayerPrefs.SetInt("CurrentScore", theLevelManager.currentScore);
 
         Time.timeScale = 1f;
@@ -103,6 +105,7 @@ public class PauseScreen : MonoBehaviour {
     }
     public void QuitToMainMenu()
     {
+		PlayerPrefs.SetInt (levelProgressKey, 0);
         Time.timeScale = 1f;
         SceneManager.LoadScene(mainMenu);
         float p = AudioManager.instance.masterVolumePercent;

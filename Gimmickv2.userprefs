@@ -1,17 +1,23 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\BossController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Fade.cs">
     <Files>
-      <File FileName="Assets\Scripts\GimmickController.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\GimmickController.cs" Line="458" Column="6" />
       <File FileName="Assets\Scripts\CrusherController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\LevelManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\LevelManager.cs" Line="83" Column="4" />
       <File FileName="Assets\Scripts\BonusHeart.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\LevelEndController.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\StarController.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\AudioManager.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\CameraController.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\UIScaler.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\BossController.cs" Line="71" Column="36" />
+      <File FileName="Assets\Scripts\BossController.cs" Line="102" Column="14" />
+      <File FileName="Assets\Scripts\MainMenu.cs" Line="23" Column="33" />
+      <File FileName="Assets\Scripts\PauseScreen.cs" Line="108" Column="44" />
+      <File FileName="Assets\Scripts\GameOver.cs" Line="73" Column="44" />
+      <File FileName="Assets\Scripts\CreditsController.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\CheckpointController.cs" Line="23" Column="55" />
+      <File FileName="Assets\Scripts\Fade.cs" Line="49" Column="10" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

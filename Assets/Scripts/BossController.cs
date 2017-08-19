@@ -99,7 +99,7 @@ public class BossController : MonoBehaviour {
 		shellThrown = false;
 		dead = false;
 		explosionCounter = DEATHTIME * EXPLOSIONSPERSECOND;
-		health = 2;
+		health = 3;
 		myRigidBody = GetComponent<Rigidbody2D> ();
 		gravity = myRigidBody.gravityScale * Physics.gravity.y;
 		boxes = GetComponents<BoxCollider2D> ();

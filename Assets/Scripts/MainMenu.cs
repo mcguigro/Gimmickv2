@@ -25,6 +25,7 @@ public class MainMenu : MonoBehaviour
 	private const string factoryBHFoundKey = "Factory LevelBonusHeartCollected";
 	private const string seasideBHFoundKey = "Seaside LevelBonusHeartCollected";
 	private const string forestBHFoundKey = "Forest LevelBonusHeartCollected";
+	private const string levelProgressKey = "Level Progress";
 
 
     public GameObject mainMenuHolder;
@@ -71,6 +72,7 @@ public class MainMenu : MonoBehaviour
 		PlayerPrefs.SetInt (factoryBHFoundKey, 0);
 		PlayerPrefs.SetInt (seasideBHFoundKey, 0);
 		PlayerPrefs.SetInt (forestBHFoundKey, 0);
+		PlayerPrefs.SetInt (levelProgressKey, 0);
 
     }
     //This loads the Level Select menu

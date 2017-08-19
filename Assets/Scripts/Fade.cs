@@ -47,7 +47,6 @@ public class Fade : MonoBehaviour {
 
         if (isFadingIn)
         {
-			Debug.Log ("Timer: " + (globalTimer - prevTimer));
 			alpha = Mathf.Lerp(alpha, -0.1f, fadeDamp * (globalTimer - prevTimer));
          }
         else

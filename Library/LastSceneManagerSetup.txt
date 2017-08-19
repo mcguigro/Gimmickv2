@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scene/Forest Level.unity
+- path: Assets/Scene/Seaside Level.unity
   isLoaded: 1
   isActive: 1

@@ -14,6 +14,8 @@ public class GameOver : MonoBehaviour
     private BonusHeart bonusHeartKey;
     private EventSystem theEventSystem;
 
+	private const string levelProgressKey = "Level Progress";
+
     // Use this for initialization
     void Start()
     {
@@ -58,6 +60,7 @@ public class GameOver : MonoBehaviour
     //loads the level select menu 
     public void LevelSelect()
     {
+		PlayerPrefs.SetInt (levelProgressKey, 0);
         PlayerPrefs.SetInt("Current Score: ", 0);//sets the current score back to 0
         ScreenTransition.FadeScreen(levelSelect, loadToColor, fadeSpeed);
        // SceneManager.LoadScene(levelSelect);// loads the levelSelect level
@@ -67,7 +70,7 @@ public class GameOver : MonoBehaviour
     // loads the Main Menu screen
     public void QuitToMainMenu()
     {
-        
+		PlayerPrefs.SetInt (levelProgressKey, 0);
        //ScreenTransition.FadeScreen(mainMenu, loadToColor, fadeSpeed);
         SceneManager.LoadScene(mainMenu);//loads the main menu scene
     }
