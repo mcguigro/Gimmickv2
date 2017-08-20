@@ -21,7 +21,7 @@
   - Extract Gimmick.exe and Gimmick_Data to the same area (Windows, 32-Bit) from Gimmick.zip, and enjoy!
 
 - Gameplay Demonstration
-	- https://youtu.be/VqMXGgIN3MM
+	- https://youtu.be/Tq5Nhqj8JPA
 
 - View Project Planning Documents and Progress Reports
 	- These are in the Reports directory.
