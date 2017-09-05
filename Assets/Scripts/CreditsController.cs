@@ -6,44 +6,48 @@ using UnityEngine.SceneManagement;
 public class CreditsController : MonoBehaviour {
 	public AudioSource creditsMusic;
 
-	public GameObject background;
-	public GameObject ground;
+	public GameObject background;			// The upper half (city) of the scrolling background
+	public GameObject ground; 				// The lower half (street) of the scrolling background
 	public GameObject gimmickOnSkateboard;
 	public GameObject canvas;
 	public Rigidbody2D myRigidbody;
 
-	public const float GROUNDMOVESPEED = 6f;
-	public const float GROUNDMINX = -3f;
-	public const float GROUNDLOOPSIZE = 4f;
+	// Constants for moving ground
+	public const float GROUNDMOVESPEED = 6f;	// Speed at which ground moves right to left
+	public const float GROUNDMINX = -3f;		// Position of ground when position should loop back to start
+	public const float GROUNDLOOPSIZE = 4f;		// Distance ground should move to the right when loop occurs
 
 	public Sprite sprite1, sprite2, sprite3, sprite4;
 	public SpriteRenderer renderer;
 
-	public const float BACKMOVESPEED = .35f;
-	public int currentSprite;
-	public const float SPRITE2TRANS = -3.6875f;
-	public const float SPRITE2DIFF = 11.8125f;
-	public const float SPRITE3TRANS = -5.6875f;
-	public const float SPRITE3DIFF= 9.5625f;
-	public const float SPRITE4TRANS = -2.1875f;
-	public const float SPRITE4DIFF = 9.8125f;
+	// Constants for moving background
+	public const float BACKMOVESPEED = .35f;	// Speed at which background moves right to left
+	public int currentSprite;					// Index of the current background image used, ranges from 1 to 4
+	public const float SPRITE2TRANS = -3.6875f;	// Position of background when transitioning from image 1 to 2
+	public const float SPRITE2DIFF = 11.8125f;	// Distance to move background to the right when transitioning from image 1 to 2
+	public const float SPRITE3TRANS = -5.6875f;	// Position of background when transitioning from image 2 to 3
+	public const float SPRITE3DIFF= 9.5625f;	// Distance to move background to the right when transitioning from image 2 to 3
+	public const float SPRITE4TRANS = -2.1875f;	// Position of background when transitioning from image 3 to 4
+	public const float SPRITE4DIFF = 9.8125f;	// Distance to move background to the right when transitioning from image 3 to 4
 
-	public float creditsTimer;
-	public int nextLine;
-	public const float TIMEBETWEENLINES = 0.6f;
-	public const float WAITFORNEWBLOCK = 0.9f;
-	public const float TIMETOTHEENDTEXT = 2.5f;
-	public float timeToNextLine;
-	public string[] credits;
-	public int creditsSize;
+	// Credits-related variables
+	public float creditsTimer;					// Timer that governs when each text box is drawn
+	public int nextLine;						// Index in credits array of next line to use
+	public const float TIMEBETWEENLINES = 0.6f;	// Time between normal text box spawns
+	public const float WAITFORNEWBLOCK = 0.9f;	// Extra time to wait before a new block of credits, i.e. before a line starting with '-'
+	public const float TIMETOTHEENDTEXT = 2.5f;	// Extra time to wait before drawing the last text box containing "The End"
+	public float timeToNextLine;				// Full time to wait until next text box spawns (by adding some of above 3 constants together)
+	public string[] credits;					// The actual strings of credits data
+	public int creditsSize;						// Size of credits array
 	public GameObject textBox;
 
-	public float globalTimer;
-	public const float TIMETOSCROLL = 110f;
-	public const float TIMETOEXIT = 115f;
-	public bool gimmickMoved;
+	// Global timing variables
+	public float globalTimer;					// Timer that counts up from scene loading
+	public const float TIMETOSCROLL = 110f;		// Total time that backgrounds should scroll
+	public const float TIMETOEXIT = 115f;		// Total time until post-credits scene loads
+	public bool gimmickMoved;					// Indicates whether Gimmick has transitioned from stationary (rel to screen) to moving
 
-	public string postCreditsSceneName;
+	public string postCreditsSceneName;			// Scene to load after credits sequence
 
 	// Use this for initialization
 	void Start () {
@@ -57,7 +61,7 @@ public class CreditsController : MonoBehaviour {
 		nextLine = 0;
 		timeToNextLine = TIMEBETWEENLINES;
 		creditsTimer = TIMEBETWEENLINES;
-		credits = new string[102] { "CONGRATULATIONS!", 
+		credits = new string[103] { "CONGRATULATIONS!", 
 			"You've defeated the vile Squirrelbot", 
 			"and restored peace to the world.",
 			"Consider yourself a hero.",
@@ -109,6 +113,7 @@ public class CreditsController : MonoBehaviour {
 			"Flying Fish (Trickster Online Revolution)",
 			"---RARE---",
 			"Blue Robot (Battletoads and Double Dragon)",
+			"Flag (R.C. Pro-Am)",
 			"---RYKY (DEVIANTART)---",
 			"Water Droplets",
 			"---SEGA---",
@@ -168,36 +173,38 @@ public class CreditsController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		globalTimer += Time.deltaTime;
-		if (globalTimer < TIMETOSCROLL) {
+		if (globalTimer < TIMETOSCROLL) { // Still scrolling the background
 			moveGround ();
 			moveBackground ();
-		} else if (!gimmickMoved) {
+		} else if (!gimmickMoved) { // Transitioning to non-moving background and moving Gimmick
 			moveGimmick ();
 			gimmickMoved = true;
-		} else if (globalTimer > TIMETOEXIT) {
+		} else if (globalTimer > TIMETOEXIT) { // Loading the next scene
 			SceneManager.LoadScene (postCreditsSceneName);
-		}
+		} // Else still in moving-Gimmick phase, no other action needed
 		updateCredits ();
 	}
 
+	// Moves the ground (street, lower half) at a constant speed to the left, looping back to the right to simulate an infinitely-long street
 	public void moveGround () {
 		float newGroundX = ground.transform.position.x - GROUNDMOVESPEED * Time.deltaTime;
-		if (newGroundX < GROUNDMINX)
+		if (newGroundX < GROUNDMINX) // Time to loop back to the right
 			newGroundX += GROUNDLOOPSIZE;
 		ground.transform.position = new Vector3 (newGroundX, ground.transform.position.y, 0f);
 	}
 
+	// Moves the background (city, upper half) at a constant speed to the left, replacing the background image with 1 of 4 variations to simulate a night-day transition.
 	public void moveBackground() {
 		float newBackX = background.transform.position.x - BACKMOVESPEED * Time.deltaTime;
-		if (currentSprite == 1 && newBackX < SPRITE2TRANS) {
+		if (currentSprite == 1 && newBackX < SPRITE2TRANS) { // Transitioning from image 1 to 2
 			newBackX += SPRITE2DIFF;
 			renderer.sprite = sprite2;
 			currentSprite++;
-		} else if (currentSprite == 2 && newBackX < SPRITE3TRANS) {
+		} else if (currentSprite == 2 && newBackX < SPRITE3TRANS) { // Transitioning from image 2 to 3
 			newBackX += SPRITE3DIFF;
 			renderer.sprite = sprite3;
 			currentSprite++;
-		} else if (currentSprite == 3 && newBackX < SPRITE4TRANS) {
+		} else if (currentSprite == 3 && newBackX < SPRITE4TRANS) { // Transitioning from image 3 to 4
 			newBackX += SPRITE4DIFF;
 			renderer.sprite = sprite4;
 			currentSprite++;
@@ -205,24 +212,28 @@ public class CreditsController : MonoBehaviour {
 		background.transform.position = new Vector3 (newBackX, background.transform.position.y, 0f);
 	}
 
+	// Causes Gimmick to start moving to the right (relative to the screen)
 	public void moveGimmick () {
 		myRigidbody.velocity = new Vector3 (GROUNDMOVESPEED, 0f, 0f);
 	}
 
+	// Periodically creates a textbox with the next line of credits.  The placement, movement and destruction of the textbox is handled by CreditsTextController.
 	public void updateCredits () {
-		if (nextLine < creditsSize) {
+		if (nextLine < creditsSize) { // More textboxes to draw
 			creditsTimer += Time.deltaTime;
-			if (creditsTimer > timeToNextLine) {
+			if (creditsTimer > timeToNextLine) { // Time to draw the next textbox
 				creditsTimer -= timeToNextLine;
 				GameObject textBoxClone = UnityEngine.Object.Instantiate (textBox, canvas.transform);
 				textBoxClone.transform.Find ("CreditsText").gameObject.GetComponent<UnityEngine.UI.Text> ().text = credits [nextLine];
 				nextLine++;
+
+				// Calculate the time to draw the next textbox
 				if (nextLine < creditsSize) {
-					if (credits [nextLine] [0] == '-')
+					if (credits [nextLine] [0] == '-') // Next textbox is start of a block, wait extra
 						timeToNextLine = TIMEBETWEENLINES + WAITFORNEWBLOCK;
-					else if (nextLine != creditsSize - 1)
+					else if (nextLine != creditsSize - 1) // Normal wait time
 						timeToNextLine = TIMEBETWEENLINES;
-					else
+					else // Next textbox is "The End", wait extra
 						timeToNextLine = TIMETOTHEENDTEXT;
 				}
 			}
