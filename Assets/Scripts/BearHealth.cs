@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+// This handles giving the bear damage when it is hit by the star.
 public class BearHealth : MonoBehaviour {
 
 	public int damageToReceive;

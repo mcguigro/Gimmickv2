@@ -49,6 +49,8 @@ public class LevelManager : MonoBehaviour
 
 	public string maxHealthKey = "MaxHealth";			//+ key used in PlayerPrefs to store max health of Gimmick
 
+	// 2D Array of spawn locations for Gimmick.  Each row corresponds to a level (levels are in numerical order), first entry in
+	//    a row is the spawn point when first entering a level; additional entries are respawn points after triggering a checkpoint with the matching progress index.
 	public static readonly Vector3[][] restartLocations = new [] {new [] { new Vector3 (-30, 33, 0), new Vector3 (-30, 33, 0) },
 		new [] { new Vector3 (-35, -21, 0), new Vector3 (-35, -21, 0) }, 
 		new [] { new Vector3 (-18.5f, 4.5f, 0), new Vector3 (-18.5f, 4.5f, 0) }, 
@@ -58,26 +60,30 @@ public class LevelManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+		// Initialize references to other objects
         Gimmick = FindObjectOfType<GimmickController>();
 		levelEnd = GameObject.Find ("LevelEnd");
+
+		// Disable level end of final level until boss is defeated
 		if (SceneManager.GetActiveScene ().name == "Forest Level")
 			levelEnd.GetComponent<SpriteRenderer>().enabled = false;
+
         AudioManager.instance.PlayMusic(MainMusic);
+
+		// Initialize various other variables
         if (PlayerPrefs.HasKey(maxHealthKey)){
 			maxHealth = PlayerPrefs.GetInt (maxHealthKey);
 		}
 		healthCount = maxHealth;
-
 		flashTimer = 0f;
-
 		spriteRenderer = Gimmick.gameObject.GetComponent<SpriteRenderer> ();
-
         PointText.text = "Current Score: " + currentScore;
-
 		theHighScore = FindObjectOfType<HighScore> ();
 
+		// Display correct hearts
 		UpdateHeartMeter ();
 
+		// Set starting location
 		int levelIndex = getLevelIndex ();
 		if (levelIndex > -1)
 			Gimmick.transform.position = restartLocations[levelIndex][PlayerPrefs.GetInt("Level Progress")];
@@ -86,14 +92,7 @@ public class LevelManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /* This is if we decide to have checkpoints and or a lives system
-        if (healthCount<=0 && !respawning)
-        {
-            Respawn();
-            respawning = true;
-        }
-        */
-
+		// Handle the flashing of Gimmick's sprite when invincible
 		updateFlashEffect ();
     }
     //This adds points to the Current Score 
@@ -112,10 +111,13 @@ public class LevelManager : MonoBehaviour
     // Deactivates Gimmick from the screen, Shows the particle effect of his death and loads the game over screen
     public IEnumerator RespawnCo()
     {
+		// Remove Gimmick and create death-splosion
         Gimmick.gameObject.SetActive(false);
         AudioManager.instance.PlaySound2D("Explosion");
         Instantiate(deathsplosion, Gimmick.transform.position, Gimmick.transform.rotation);
         yield return new WaitForSeconds(waitToRespawn);
+
+		// Freeze action, bring up game over screen, save high score, change music
         Time.timeScale = 0;
         gameOverScreen.SetActive(true);
 		theHighScore.SaveScore ();   // save the score of the player
@@ -130,6 +132,7 @@ public class LevelManager : MonoBehaviour
         //If Gimmick isn't Invincible decrease health 
         if (!Invincible)
         {
+			// Decrease health, update heart meter, kill Gimmick if health is <= 0
             healthCount -= damageToTake;
             UpdateHeartMeter();
             //Gimmick.hurtSound.Play();
@@ -143,7 +146,8 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-	//PRECONDITION: flashTimer must be set with the time to be invincible just before calling this.
+	// Handles making Gimmick invincible for flashTimer seconds.
+	//PRECONDITION: flashTimer must be set with the time to be invincible before calling this; this happens in HurtPlayer.
 	private IEnumerator HurtPlayerCo(){
 		// make player immune to damage for a duration
 		yield return new WaitForSeconds (flashTimer);
@@ -170,7 +174,7 @@ public class LevelManager : MonoBehaviour
     //This updates the heart images that represent health on the players screen
     public void UpdateHeartMeter()
     {
-
+		// TO-DO: Un-switch-ify this and the below functions at some point.
 		if (PlayerPrefs.HasKey (maxHealthKey)) {
 			switch (PlayerPrefs.GetInt (maxHealthKey)) {
 			case 6:
@@ -771,9 +775,13 @@ public class LevelManager : MonoBehaviour
 		}
 	}
 
+	// Handles the flashing of Gimmick's sprite while flashTimer is greater than 0.
 	public void updateFlashEffect() {
+		// Update flashTimer
 		if (flashTimer > 0)
 			flashTimer -= Time.deltaTime;
+
+		// Linearly interpolate the alpha of Gimmick's sprite from 0.35 to 0.85 and back again, at 4 cycles per second
 		if (flashTimer > 0) {
 			float flash = (flashTimer * 4) - (Mathf.Floor (flashTimer * 4)) + 0.35f;
 			if (flash > 0.85f)
@@ -787,6 +795,8 @@ public class LevelManager : MonoBehaviour
 		//Debug.Log ("alpha: " + spriteRenderer.color.a);
 	}
 
+	// Returns the numerical index of the current level, for the purpose of accessing the correct row of
+	//    the respawn-points 2d array.
 	public int getLevelIndex() {
 		string levelName = SceneManager.GetActiveScene ().name;
 		if (levelName == "CaveLevel")

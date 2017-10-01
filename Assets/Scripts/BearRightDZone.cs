@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Notifies the bear that gimmick is in it's danger zone whenever gimmick is in the associated trigger.
 public class BearRightDZone : MonoBehaviour {
 
 	private BearController theBearController;

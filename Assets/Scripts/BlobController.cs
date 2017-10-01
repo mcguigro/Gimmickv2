@@ -5,8 +5,8 @@ using UnityEngine;
 public class BlobController : MonoBehaviour {
 
 	public bool canMove;
-	public const float maxMoveSpeed = 4f;
-	public const float accel = 10f;
+	public const float maxMoveSpeed = 4f;		// The max speed (units/sec) at which the blob can move horizontally.
+	public const float accel = 10f;				// Horizontal acceleration (units/sec^2) experienced by the blob when moving towards gimmick.
 	private Rigidbody2D myRigidBody;
 	public GameObject gimmick;
 
@@ -18,6 +18,8 @@ public class BlobController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (canMove) {
+
+			// Accelerate horizontally in the direction of Gimmick, capping horizontal speed with maxMoveSpeed
 			float xVel = myRigidBody.velocity.x;
 			if (transform.position.x < gimmick.transform.position.x) {
 				xVel += accel * Time.deltaTime;

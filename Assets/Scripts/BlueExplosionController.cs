@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Plays an explosion sound, then destroys the object this script is attached to LIFETIME seconds later.
 public class BlueExplosionController : MonoBehaviour {
 
 	public const float LIFETIME = 0.5f;
